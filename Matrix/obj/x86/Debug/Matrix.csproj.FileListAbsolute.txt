@@ -1,0 +1,6 @@
+c:\users\valery\documents\visual studio 2010\Projects\Matrix\Matrix\bin\Debug\Matrix.exe
+c:\users\valery\documents\visual studio 2010\Projects\Matrix\Matrix\bin\Debug\Matrix.pdb
+c:\users\valery\documents\visual studio 2010\Projects\Matrix\Matrix\obj\x86\Debug\Matrix.exe
+c:\users\valery\documents\visual studio 2010\Projects\Matrix\Matrix\obj\x86\Debug\Matrix.pdb
+C:\Users\Valery\Documents\GitHub\LearningC-\Matrix\Matrix\obj\x86\Debug\Matrix.exe
+C:\Users\Valery\Documents\GitHub\LearningC-\Matrix\Matrix\obj\x86\Debug\Matrix.pdb
