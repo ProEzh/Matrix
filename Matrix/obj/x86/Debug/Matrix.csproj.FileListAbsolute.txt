@@ -4,3 +4,8 @@ c:\users\valery\documents\visual studio 2010\Projects\Matrix\Matrix\obj\x86\Debu
 c:\users\valery\documents\visual studio 2010\Projects\Matrix\Matrix\obj\x86\Debug\Matrix.pdb
 C:\Users\Valery\Documents\GitHub\LearningC-\Matrix\Matrix\obj\x86\Debug\Matrix.exe
 C:\Users\Valery\Documents\GitHub\LearningC-\Matrix\Matrix\obj\x86\Debug\Matrix.pdb
+C:\Users\Valery\Documents\GitHub\Matrix\Matrix\obj\x86\Debug\Matrix.exe
+C:\Users\Valery\Documents\GitHub\Matrix\Matrix\obj\x86\Debug\Matrix.pdb
+C:\Users\Valery\Documents\GitHub\Matrix\Matrix\bin\Debug\Matrix.exe
+C:\Users\Valery\Documents\GitHub\Matrix\Matrix\bin\Debug\Matrix.pdb
+C:\Users\Valery\Documents\GitHub\Matrix\Matrix\obj\x86\Debug\Matrix.csprojResolveAssemblyReference.cache

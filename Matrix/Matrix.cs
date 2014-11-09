@@ -33,7 +33,64 @@ namespace Matrix
             
             return resultOfAddition;
         }
-        
+
+        public Matrix Subtraction(Matrix matrix)
+        {
+            if (countOfRows_ != matrix.countOfRows_ || countOfColumns_ != matrix.countOfColumns_)
+            {
+                return null;
+            }
+
+            Matrix resultOfSubtraction = new Matrix(countOfRows_, countOfColumns_);
+            for (uint i = 0; i < countOfRows_; ++i)
+            {
+                for (uint j = 0; j < countOfColumns_; ++j)
+                {
+                    resultOfSubtraction.values_[i, j] = values_[i, j] - matrix.values_[i, j];
+                }
+            }
+            return resultOfSubtraction;
+        }
+
+        public Matrix Multiplication(Matrix matrix)
+        {
+            if (countOfColumns_ != matrix.countOfRows_ )
+            {
+                return null;
+            }
+
+            Matrix resultOfMultiplication = new Matrix(countOfRows_, countOfColumns_);
+            for (uint i = 0; i < countOfRows_; ++i)
+            {
+                for (uint j = 0; j < matrix.countOfColumns_; ++j)
+                {
+                    for (uint k = 0; k < matrix.countOfRows_; ++k )
+                        resultOfMultiplication.values_[i, j] += values_[i, k] * matrix.values_[k, j];
+                }
+            }
+            return resultOfMultiplication;
+        }
+
+        public Matrix MatrixDegree(uint degree, Matrix matrix)
+        {
+            if (countOfColumns_ != countOfRows_)
+            {
+                return null;
+            }
+
+            Matrix resultOfMatrixDegree = new Matrix(countOfRows_, countOfColumns_);
+            for (int i = 0; i < countOfRows_; ++i)
+                for (int j = 0; j < countOfColumns_; ++j)
+                    resultOfMatrixDegree.values_[i, i] = 1;
+            int k = 0;
+            while (k < degree)
+            {
+                resultOfMatrixDegree = resultOfMatrixDegree.Multiplication(matrix);
+                ++k;
+            }
+            return resultOfMatrixDegree;
+        }
+
         public void Fill()
         {
             Random rand = new Random();
@@ -56,13 +113,13 @@ namespace Matrix
         }
         
         public static void Main() {
-            Matrix A = new Matrix(3, 4);
+            Matrix A = new Matrix(2, 2);
             A.Fill();
             Console.WriteLine("A:");
             A.Print();
             
             Console.WriteLine("B:");
-            Matrix B = new Matrix(3, 4);
+            Matrix B = new Matrix(2, 2);
             B.Fill();
             B.Print();
             
@@ -74,7 +131,39 @@ namespace Matrix
             else {
                 Console.WriteLine("A+B: Error");
             }
-            
+
+            Matrix resultOfSubtraction = A.Subtraction(B);
+            if (resultOfSubtraction != null)
+            {
+                Console.WriteLine("A-B:");
+                resultOfSubtraction.Print();
+            }
+            else
+            {
+                Console.WriteLine("A-B: Error");
+            }
+
+            Matrix resultOfMultiplication = A.Multiplication(B);
+            if (resultOfMultiplication != null)
+            {
+                Console.WriteLine("A*B:");
+                resultOfMultiplication.Print();
+            }
+            else
+            {
+                Console.WriteLine("A*B: Error");
+            }
+
+            Matrix resultOfDegree = A.MatrixDegree(3, A);
+            if (resultOfDegree != null)
+            {
+                Console.WriteLine("A^B:");
+                resultOfDegree.Print();
+            }
+            else
+            {
+                Console.WriteLine("A^B: Error");
+            }
         }
     }
 }
