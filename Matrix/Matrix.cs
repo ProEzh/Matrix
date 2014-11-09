@@ -1,23 +1,80 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Matrix
 {
-    class Matrix
+    public class Matrix
     {
-        static public void Main()
+        private uint countOfRows_;
+        private uint countOfColumns_;
+        private int[,] values_;
+        
+        public static int DefaultMaxValue = 10;
+        
+        public Matrix(uint countOfRows, uint countOfColumns)
         {
-            MatrixOperations ob = new MatrixOperations(1, 2);
-            MatrixOperations ob1 = new MatrixOperations(2, 1);
-            int[,] matrix = ob.FillingMatrix(ob);
-            int[,] matrix1 = ob1.FillingMatrix(ob1);
-            int[,] ResultOfMatrixAddition = ob.MatrixAddition(matrix, matrix1);             //Очень странно, что если отлаживать пошагово, то метод next дает разные значения
-            Console.WriteLine(ResultOfMatrixAddition);                                      //если же в этой строке установить точку останова, то массивы заполняются одинаково
-
-            int[,] ResultOfMatrixSubtraction = ob.MatrixSubtraction(matrix, matrix1);
-            int[,] ResultOfMatrixMultiplication = ob.MatrixMultiplication(matrix, matrix1);
+            countOfRows_ = countOfRows;
+            countOfColumns_ = countOfColumns;
+            
+            values_ = new int[countOfRows, countOfColumns];
+        }
+        
+        public Matrix Addition(Matrix matrix)
+        {
+            if (countOfRows_ != matrix.countOfRows_ || countOfColumns_ != matrix.countOfColumns_) {
+                return null;
+            }
+            
+            Matrix resultOfAddition = new Matrix (countOfRows_, countOfColumns_);
+            for (uint i = 0; i < countOfRows_; ++i) {
+                for (uint j = 0; j < countOfColumns_; ++j) {
+                    resultOfAddition.values_[i, j] = values_[ i, j ] + matrix.values_[ i, j ];
+                }
+            }
+            
+            return resultOfAddition;
+        }
+        
+        public void Fill()
+        {
+            Random rand = new Random();
+            for (uint i = 0; i < countOfRows_; ++i) {
+                for (uint j = 0; j < countOfColumns_; ++j) {
+                    values_[i, j] = rand.Next( DefaultMaxValue );
+                }
+            }
+        }
+        
+        public void Print()
+        {
+            for (uint i = 0; i < countOfRows_; ++i) {
+                for (uint j = 0; j < countOfColumns_; ++j) {
+                    Console.Write("{0:D}\t", values_[i, j]);
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine();
+        }
+        
+        public static void Main() {
+            Matrix A = new Matrix(3, 4);
+            A.Fill();
+            Console.WriteLine("A:");
+            A.Print();
+            
+            Console.WriteLine("B:");
+            Matrix B = new Matrix(3, 4);
+            B.Fill();
+            B.Print();
+            
+            Matrix resultOfAddition = A.Addition(B);
+            if (resultOfAddition != null) {
+                Console.WriteLine ("A+B:");
+                resultOfAddition.Print ();
+            }
+            else {
+                Console.WriteLine("A+B: Error");
+            }
+            
         }
     }
 }
