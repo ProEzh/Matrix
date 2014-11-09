@@ -33,14 +33,14 @@ namespace Matrix
             
             return resultOfAddition;
         }
-
+        
         public Matrix Subtraction(Matrix matrix)
         {
             if (countOfRows_ != matrix.countOfRows_ || countOfColumns_ != matrix.countOfColumns_)
             {
                 return null;
             }
-
+            
             Matrix resultOfSubtraction = new Matrix(countOfRows_, countOfColumns_);
             for (uint i = 0; i < countOfRows_; ++i)
             {
@@ -49,48 +49,55 @@ namespace Matrix
                     resultOfSubtraction.values_[i, j] = values_[i, j] - matrix.values_[i, j];
                 }
             }
+            
             return resultOfSubtraction;
         }
-
+        
         public Matrix Multiplication(Matrix matrix)
         {
             if (countOfColumns_ != matrix.countOfRows_ )
             {
                 return null;
             }
-
-            Matrix resultOfMultiplication = new Matrix(countOfRows_, countOfColumns_);
+            
+            Matrix resultOfMultiplication = new Matrix(countOfRows_, matrix.countOfColumns_);
             for (uint i = 0; i < countOfRows_; ++i)
             {
                 for (uint j = 0; j < matrix.countOfColumns_; ++j)
                 {
-                    for (uint k = 0; k < matrix.countOfRows_; ++k )
+                    for (uint k = 0; k < matrix.countOfRows_; ++k)
                         resultOfMultiplication.values_[i, j] += values_[i, k] * matrix.values_[k, j];
                 }
             }
+            
             return resultOfMultiplication;
         }
-
-        public Matrix MatrixDegree(uint degree, Matrix matrix)
+        
+        public static Matrix E(uint countOfRows)
         {
-            if (countOfColumns_ != countOfRows_)
+            Matrix E = new Matrix(countOfRows, countOfRows);
+            for (int i = 0; i < countOfRows; ++i) {
+                E.values_[i, i] = 1;
+            }
+            
+            return E;
+        }
+        
+        public Matrix InDegree(uint degree)
+        {
+            if (countOfRows_ != countOfColumns_)
             {
                 return null;
             }
-
-            Matrix resultOfMatrixDegree = new Matrix(countOfRows_, countOfColumns_);
-            for (int i = 0; i < countOfRows_; ++i)
-                for (int j = 0; j < countOfColumns_; ++j)
-                    resultOfMatrixDegree.values_[i, i] = 1;
-            int k = 0;
-            while (k < degree)
-            {
-                resultOfMatrixDegree = resultOfMatrixDegree.Multiplication(matrix);
-                ++k;
+            
+            Matrix resultOfMatrixDegree = Matrix.E(countOfRows_);
+            for (int k = 0; k < degree; ++k) {
+                resultOfMatrixDegree = resultOfMatrixDegree.Multiplication(this);
             }
+            
             return resultOfMatrixDegree;
         }
-
+        
         public void Fill()
         {
             Random rand = new Random();
@@ -128,10 +135,11 @@ namespace Matrix
                 Console.WriteLine ("A+B:");
                 resultOfAddition.Print ();
             }
-            else {
+            else
+            {
                 Console.WriteLine("A+B: Error");
             }
-
+            
             Matrix resultOfSubtraction = A.Subtraction(B);
             if (resultOfSubtraction != null)
             {
@@ -142,7 +150,7 @@ namespace Matrix
             {
                 Console.WriteLine("A-B: Error");
             }
-
+            
             Matrix resultOfMultiplication = A.Multiplication(B);
             if (resultOfMultiplication != null)
             {
@@ -153,16 +161,17 @@ namespace Matrix
             {
                 Console.WriteLine("A*B: Error");
             }
-
-            Matrix resultOfDegree = A.MatrixDegree(3, A);
+            
+            uint degree = 2;
+            Matrix resultOfDegree = A.InDegree(degree);
             if (resultOfDegree != null)
             {
-                Console.WriteLine("A^B:");
+                Console.WriteLine("A^{0:D}:", degree);
                 resultOfDegree.Print();
             }
             else
             {
-                Console.WriteLine("A^B: Error");
+                Console.WriteLine("A^{0:D}: Error", degree);
             }
         }
     }
